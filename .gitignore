@@ -24,3 +24,9 @@ Thumbs.db
 
 # Session files (may contain auth keys)
 *.session
+*.dat
+
+# Local entrypoints and test scripts
+main.go
+test.go
+
