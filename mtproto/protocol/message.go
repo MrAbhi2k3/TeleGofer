@@ -54,16 +54,6 @@ func UnpackUnencrypted(data []byte) (int64, []byte, error) {
 	return msgID, data[20 : 20+msgLen], nil
 }
 
-// PackEncrypted frames, pads, and encrypts an MTProto 2.0 payload using the shared auth key.
-//
-// Inner layout:
-// server_salt (8 bytes)
-// session_id  (8 bytes)
-// msg_id      (8 bytes)
-// seq_no      (4 bytes)
-// msg_len     (4 bytes)
-// payload     (N bytes)
-// padding     (12..1024 bytes random, total inner length divisible by 16)
 func PackEncrypted(authKey *crypto.AuthKey, serverSalt int64, sessionID int64, msgID int64, seqNo int32, payload []byte) ([]byte, error) {
 	headerLen := 8 + 8 + 8 + 4 + 4 // 32 bytes
 	contentLen := headerLen + len(payload)
